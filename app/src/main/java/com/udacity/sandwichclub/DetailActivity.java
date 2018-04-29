@@ -88,7 +88,7 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void populateUI(Sandwich sandwich) {
-        // TODO: put code that will add Strings to activity_detail.xml
+        // COMPLETED: put code that will add Strings to activity_detail.xml
 
         image_iv = findViewById(R.id.image_iv);
 

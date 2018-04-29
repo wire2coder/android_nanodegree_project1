@@ -15,6 +15,9 @@ public class JsonUtils {
 
     private static Sandwich sandwich;
 
+    private static List<String> alsoKnownAsList = new ArrayList<>();
+    private static List<String> ingredientsList = new ArrayList<>();
+
     public static Sandwich parseSandwichJson(String json) {
 
         // TODO: https://jsonformatter.curiousconcept.com/
@@ -30,11 +33,7 @@ public class JsonUtils {
 
             JSONArray alsoKnownAs = nameInJson.getJSONArray("alsoKnownAs");
 
-            List<String> alsoKnownAsList = new ArrayList<>();
-            for (int i = 0; i < alsoKnownAs.length(); i++) {
-                alsoKnownAsList.add(alsoKnownAs.optString(i));
-//                Log.i(">>> alsoKnownAs: ", alsoKnownAs.optString(i) );
-            }
+            makeListString(alsoKnownAs, alsoKnownAsList);
 //                Log.i(">>> alsoKnownAs: ", alsoKnownAsList.toString() );
 
             String placeOfOrigin = sandwichRoot.getString("placeOfOrigin");
@@ -48,33 +47,27 @@ public class JsonUtils {
 
             JSONArray ingredients = sandwichRoot.getJSONArray("ingredients");
 
-            List<String> ingredientsList = new ArrayList<>();
-
-            for (int i = 0; i < ingredients.length(); i++) {
-
-//                Log.i(">>> ingredients: ", ingredients.optString(i) );
-                ingredientsList.add(ingredients.optString(i));
-
-            }
-//                Log.i(">>> ingredients: ", ingredientsList.toString() );
-
+            makeListString(ingredients, ingredientsList);
+            Log.i(">>> ingredients: ", ingredientsList.toString());
 
             sandwich = new Sandwich(mainName, alsoKnownAsList,
                     placeOfOrigin, description, image, ingredientsList);
-
-//            Log.i(">>> Sandwich: ", sandwich.getMainName() );
-//            Log.i(">>> Sandwich: ", sandWich.getAlsoKnownAs() );
-//            Log.i(">>> Sandwich: ", sandwich.getPlaceOfOrigin() );
-//            Log.i(">>> Sandwich: ", sandwich.getDescription() );
-//            Log.i(">>> Sandwich: ", sandwich.getImage() );
-//            Log.i(">>> Sandwich: ", sandWich.getIngredients() );
-
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         return sandwich;
+
+    } // parseSandwichJson
+
+    // this class method is converting JSONArray into STRING LIST
+    private static void makeListString(JSONArray jsonArray, List<String> list) {
+
+        for (int i = 0; i < jsonArray.length(); i++) {
+            list.add(jsonArray.optString(i));
+        }
+
     }
 
-}
+} // class
