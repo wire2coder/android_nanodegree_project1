@@ -16,34 +16,58 @@ public class JsonUtils {
     public static Sandwich parseSandwichJson(String json) {
 
         // TODO: 'implement' parseSandwichJson(String json)
+        // TODO: https://jsonformatter.curiousconcept.com/
         // lesson 2, 21. quiz: parse JSON
-        // you have STRING coming in
-        // 1. Convert STRING to JSON
-        // 2. PARSE the JSON into different 'parts'
-
-//        Log.i(">>> parseSandwichJson", json );
 
         try {
 
+            JSONObject sandwichRoot = new JSONObject(json);
 
-            JSONObject sandwichData = new JSONObject(json);
-//            Log.i(">>> ::: ", sandwichData.toString() );
+            JSONObject nameInJson = sandwichRoot.getJSONObject("name");
+            String mainName = nameInJson.getString("mainName");
+//                Log.i(">>> name: ", name);
 
-            JSONObject nameInJson = sandwichData.getJSONObject("name");
+            JSONArray alsoKnownAs = nameInJson.getJSONArray("alsoKnownAs");
 
-            String name = nameInJson.getString("mainName");
-//            Log.i(">>> ___ ", name);
+            List<String> alsoKnownAsList = new ArrayList<>();
+            for(int i=0; i<alsoKnownAs.length(); i++) {
+                alsoKnownAsList.add( alsoKnownAs.optString(i) );
+//                Log.i(">>> alsoKnownAs: ", alsoKnownAs.optString(i) );
+            }
+//                Log.i(">>> alsoKnownAs: ", alsoKnownAsList.toString() );
 
-            ArrayList<String> ls1 = new ArrayList<>();
-            ls1.add("a");
-            ls1.add("b");
-            ls1.add("c");
+            String placeOfOrigin = sandwichRoot.getString("placeOfOrigin");
+//                Log.i(">>> placeOfOrigin: ", placeOfOrigin);
 
-//        Log.i(">>> ___ ", ls1.toString() );
+            String description = sandwichRoot.getString("description");
+//                Log.i(">>> description: ", description);
 
-            // TODO: HERE 4/25 make a Sandwich objects
-            Sandwich sandWich = new Sandwich(name, ls1, "origin", "des", "imag", ls1);
-            Log.i(">>> ___ ", sandWich.getMainName() );
+            String image = sandwichRoot.getString("image");
+//                Log.i(">>> image: ", image);
+
+            JSONArray ingredients = sandwichRoot.getJSONArray("ingredients");
+
+            List<String> ingredientsList = new ArrayList<>();
+
+            for (int i=0; i<ingredients.length(); i++) {
+
+//                Log.i(">>> ingredients: ", ingredients.optString(i) );
+                ingredientsList.add( ingredients.optString(i) );
+
+            }
+//                Log.i(">>> ingredients: ", ingredientsList.toString() );
+
+
+            // TODO: HERE 4/28 make a Sandwich objects
+            Sandwich sandWich = new Sandwich(mainName, alsoKnownAsList,
+                    placeOfOrigin, description, image, ingredientsList);
+
+            Log.i(">>> Sandwich: ", sandWich.getMainName() );
+            Log.i(">>> Sandwich: ", sandWich.getAlsoKnownAs() );
+            Log.i(">>> Sandwich: ", sandWich.getPlaceOfOrigin() );
+            Log.i(">>> Sandwich: ", sandWich.getDescription() );
+            Log.i(">>> Sandwich: ", sandWich.getImage() );
+//            Log.i(">>> Sandwich: ", sandWich.getIngredients() );
 
 
         } catch (JSONException e) {
@@ -59,8 +83,6 @@ public class JsonUtils {
                 String image,
                 List<String> ingredients)
         */
-
-
 
 
         return null;
