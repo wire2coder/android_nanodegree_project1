@@ -13,9 +13,10 @@ import java.util.List;
 
 public class JsonUtils {
 
+    private static Sandwich sandwich;
+
     public static Sandwich parseSandwichJson(String json) {
 
-        // TODO: 'implement' parseSandwichJson(String json)
         // TODO: https://jsonformatter.curiousconcept.com/
         // lesson 2, 21. quiz: parse JSON
 
@@ -30,8 +31,8 @@ public class JsonUtils {
             JSONArray alsoKnownAs = nameInJson.getJSONArray("alsoKnownAs");
 
             List<String> alsoKnownAsList = new ArrayList<>();
-            for(int i=0; i<alsoKnownAs.length(); i++) {
-                alsoKnownAsList.add( alsoKnownAs.optString(i) );
+            for (int i = 0; i < alsoKnownAs.length(); i++) {
+                alsoKnownAsList.add(alsoKnownAs.optString(i));
 //                Log.i(">>> alsoKnownAs: ", alsoKnownAs.optString(i) );
             }
 //                Log.i(">>> alsoKnownAs: ", alsoKnownAsList.toString() );
@@ -49,24 +50,23 @@ public class JsonUtils {
 
             List<String> ingredientsList = new ArrayList<>();
 
-            for (int i=0; i<ingredients.length(); i++) {
+            for (int i = 0; i < ingredients.length(); i++) {
 
 //                Log.i(">>> ingredients: ", ingredients.optString(i) );
-                ingredientsList.add( ingredients.optString(i) );
+                ingredientsList.add(ingredients.optString(i));
 
             }
 //                Log.i(">>> ingredients: ", ingredientsList.toString() );
 
 
-            // TODO: HERE 4/28 make a Sandwich objects
-            Sandwich sandWich = new Sandwich(mainName, alsoKnownAsList,
+            sandwich = new Sandwich(mainName, alsoKnownAsList,
                     placeOfOrigin, description, image, ingredientsList);
 
-            Log.i(">>> Sandwich: ", sandWich.getMainName() );
-            Log.i(">>> Sandwich: ", sandWich.getAlsoKnownAs() );
-            Log.i(">>> Sandwich: ", sandWich.getPlaceOfOrigin() );
-            Log.i(">>> Sandwich: ", sandWich.getDescription() );
-            Log.i(">>> Sandwich: ", sandWich.getImage() );
+//            Log.i(">>> Sandwich: ", sandwich.getMainName() );
+//            Log.i(">>> Sandwich: ", sandWich.getAlsoKnownAs() );
+//            Log.i(">>> Sandwich: ", sandwich.getPlaceOfOrigin() );
+//            Log.i(">>> Sandwich: ", sandwich.getDescription() );
+//            Log.i(">>> Sandwich: ", sandwich.getImage() );
 //            Log.i(">>> Sandwich: ", sandWich.getIngredients() );
 
 
@@ -74,18 +74,7 @@ public class JsonUtils {
             e.printStackTrace();
         }
 
-        /*
-        public Sandwich(
-                String mainName,
-                List<String> alsoKnownAs,
-                String placeOfOrigin,
-                String description,
-                String image,
-                List<String> ingredients)
-        */
-
-
-        return null;
+        return sandwich;
     }
 
 }
